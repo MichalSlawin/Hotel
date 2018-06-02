@@ -22,7 +22,7 @@ public class CrudModel {
         CrudController controller = fxmlLoader.<CrudController>getController();
         controller.setNazwaTabeli(nazwaTabeli);
         primaryStage.setTitle("CRUD");
-        primaryStage.setScene(new Scene(root, 600, 500));
+        primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();
     }
 

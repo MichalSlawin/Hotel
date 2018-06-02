@@ -2,14 +2,19 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="420.0" prefWidth="549.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hotel.CrudController">
+<AnchorPane prefHeight="594.0" prefWidth="791.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hotel.CrudController">
    <children>
-      <Button layoutX="461.0" layoutY="67.0" mnemonicParsing="false" onAction="#wypiszTabele" prefHeight="31.0" prefWidth="74.0" text="Wypisz" />
-      <Button layoutX="461.0" layoutY="123.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="74.0" text="Zmień" />
-      <Button layoutX="461.0" layoutY="180.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="74.0" text="Usuń" />
-      <Button layoutX="461.0" layoutY="14.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="74.0" text="Dodaj" />
-      <TextArea fx:id="resultArea" layoutX="47.0" layoutY="242.0" prefHeight="169.0" prefWidth="486.0" />
+      <Button layoutX="704.0" layoutY="103.0" mnemonicParsing="false" onAction="#wypiszTabele" prefHeight="31.0" prefWidth="67.0" text="Wypisz" />
+      <Button layoutX="701.0" layoutY="512.0" mnemonicParsing="false" onAction="#zmienRekord" prefHeight="31.0" prefWidth="74.0" text="Zmień" />
+      <Button layoutX="36.0" layoutY="512.0" mnemonicParsing="false" onAction="#usunRekord" prefHeight="31.0" prefWidth="74.0" text="Usuń" />
+      <Button layoutX="704.0" layoutY="53.0" mnemonicParsing="false" onAction="#dodajRekord" prefHeight="31.0" prefWidth="67.0" text="Dodaj" />
+      <TextArea fx:id="resultArea" layoutX="36.0" layoutY="149.0" prefHeight="352.0" prefWidth="737.0" />
+      <TextField fx:id="addField" layoutX="36.0" layoutY="53.0" prefHeight="31.0" prefWidth="656.0" promptText="wartości kolumn oddzielone przecinkami" />
+      <TextField fx:id="readField" layoutX="36.0" layoutY="103.0" prefHeight="31.0" prefWidth="656.0" promptText="opcje wyszukiwania" />
+      <TextField fx:id="updateField" layoutX="178.0" layoutY="512.0" prefHeight="31.0" prefWidth="514.0" promptText="kolumna1=wartosc1, kolumna2=wartosc2" />
+      <TextField fx:id="statusField" layoutX="516.0" layoutY="549.0" prefHeight="31.0" prefWidth="259.0" promptText="status" />
    </children>
 </AnchorPane>

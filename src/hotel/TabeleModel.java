@@ -11,7 +11,7 @@ public class TabeleModel {
         Stage primaryStage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("tabele.fxml"));
         primaryStage.setTitle("Tabele");
-        primaryStage.setScene(new Scene(root, 500, 500));
+        primaryStage.setScene(new Scene(root, 500, 400));
         primaryStage.show();
     }
 }
