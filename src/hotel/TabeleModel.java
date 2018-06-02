@@ -4,16 +4,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import login.LoginModel;
 
-import java.sql.Connection;
-
-public class Hotel {
+public class TabeleModel {
 
     public void start() throws Exception{
         Stage primaryStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("hotel.fxml"));
-        primaryStage.setTitle("Hotel");
+        Parent root = FXMLLoader.load(getClass().getResource("tabele.fxml"));
+        primaryStage.setTitle("Tabele");
         primaryStage.setScene(new Scene(root, 500, 500));
         primaryStage.show();
     }

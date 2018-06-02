@@ -1,17 +1,9 @@
 package login;
 
-import hotel.Hotel;
-import javafx.event.ActionEvent;
+import hotel.TabeleModel;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class LoginController {
 
@@ -31,9 +23,9 @@ public class LoginController {
         if(loginModel.isDatabaseConnected()) {
             this.statusField.setText("Połączono");
 
-            hotel.Hotel hotel = new Hotel();
+            TabeleModel tabeleModel = new TabeleModel();
             try {
-                hotel.start();
+                tabeleModel.start();
             } catch (Exception e) {
                 e.printStackTrace();
             }

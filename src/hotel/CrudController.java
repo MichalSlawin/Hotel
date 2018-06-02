@@ -6,22 +6,19 @@ import login.DbConnection;
 
 import java.sql.*;
 
-
-public class HotelController {
+public class CrudController {
+    String nazwaTabeli;
     private Connection connection = DbConnection.getConnection();
     private Statement statement;
     private ResultSet resultSet;
+    @FXML
+    private TextArea resultArea;
 
     @FXML
-    private TextArea outputArea;
-
-    public HotelController() {}
-
-    @FXML
-    public void zarzadzajWynajmami() {
+    public void wypiszTabele() {
         try {
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("SELECT * FROM Wynajem");
+            resultSet = statement.executeQuery("SELECT * FROM " + nazwaTabeli);
 
             ResultSetMetaData rsmd = resultSet.getMetaData();
             int columnsNumber = rsmd.getColumnCount();
@@ -35,10 +32,14 @@ public class HotelController {
                 }
                 resultStr += "\n";
             }
-            outputArea.setText(resultStr);
+            resultArea.setText(resultStr);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setNazwaTabeli(String nazwaTabeli) {
+        this.nazwaTabeli = nazwaTabeli;
     }
 }
