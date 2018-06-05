@@ -29,15 +29,18 @@ public class CrudController {
         try {
             statement = connection.createStatement();
             if(readField.getText().trim().isEmpty()) {
-                resultSet = statement.executeQuery("SELECT * FROM " + nazwaTabeli + ";");
+                //resultSet = statement.executeQuery("SELECT * FROM " + nazwaTabeli + ";");
+                resultSet = statement.executeQuery(setQuery() + ";");
             }
             else {
-                resultSet = statement.executeQuery("SELECT * FROM " + nazwaTabeli + " WHERE " + readField.getText() + ";");
+                //resultSet = statement.executeQuery("SELECT * FROM " + nazwaTabeli + " WHERE " + readField.getText() + ";");
+                resultSet = statement.executeQuery(setQuery() + " WHERE " + readField.getText() + ";");
             }
 
             ResultSetMetaData rsmd = resultSet.getMetaData();
             int columnsNumber = rsmd.getColumnCount();
             String resultStr = "";
+
             String columnValue;
             String columnName;
             for (int i = 1; i <= columnsNumber; i++) {
@@ -51,9 +54,6 @@ public class CrudController {
             while (resultSet.next()) {
                 for (int i = 1; i <= columnsNumber; i++) {
                     columnValue = resultSet.getString(i);
-                    if(i == 1) {
-                        previousID = columnValue;
-                    }
                     resultStr += columnValue;
                     if(i != columnsNumber) {
                         resultStr += " | ";
@@ -62,10 +62,41 @@ public class CrudController {
                 resultStr += "\n";
             }
             resultArea.setText(resultStr);
+            statusField.setText("wyświetlono");
 
         } catch (SQLException e) {
             e.printStackTrace();
+            statusField.setText("wyświetlenie nieudane");
         }
+    }
+
+    private String setQuery() {
+        Statement idStatement = null;
+        try {
+            idStatement = connection.createStatement();
+            ResultSet idResultSet = idStatement.executeQuery("Select * FROM " + nazwaTabeli + ";");
+            idResultSet.next();
+            previousID = idResultSet.getString(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        switch(nazwaTabeli) {
+            case "Wynajem":
+                return "SELECT p.imie + ' ' + p.nazwisko AS Pracownik, k.imie + ' ' + k.nazwisko AS Klient, w.data_wynajmu, w.data_oddania, w.oplata\n" +
+                        "FROM Pracownik p INNER JOIN Wynajem w ON w.Pracownik_id_pracownik = p.id_pracownik\n" +
+                        "INNER JOIN Klient k ON w.Klient_id_klient = k.id_klient";
+            case "Klient":
+                return "SELECT k.imie, k.nazwisko, k.email, k.telefon, a.ulica + a.numer + ' ' + a.kod_pocztowy AS Adres\n" +
+                        "FROM Klient k INNER JOIN Adres a ON k.Adres_id_adres = a.id_adres";
+            case "Pokoj":
+                return "SELECT numer, ilu_osobowy, wyposazenie FROM Pokoj";
+            case "Pracownik":
+                return "SELECT p.imie, p.nazwisko, p.email, p.telefon, p.pesel, p.stanowisko, p.pensja, a.ulica + a.numer + ' ' + a.kod_pocztowy AS Adres\n" +
+                        "FROM Pracownik p INNER JOIN Adres a ON p.Adres_id_adres = a.id_adres";
+            case "Adres":
+                return "SELECT ulica, numer, kod_pocztowy, miasto FROM adres";
+        }
+        return null;
     }
 
     @FXML
@@ -75,8 +106,10 @@ public class CrudController {
         try {
             statement = connection.createStatement();
             statement.executeUpdate(update);
+            statusField.setText("dodano");
         } catch (SQLException e) {
             e.printStackTrace();
+            statusField.setText("dodanie nieudane");
         }
     }
 
@@ -93,6 +126,7 @@ public class CrudController {
                 statement.executeUpdate(update);
             } catch (SQLException e) {
                 e.printStackTrace();
+                statusField.setText("zmiana nieudana");
             }
         }
         else {
@@ -106,7 +140,7 @@ public class CrudController {
         if(countLines(result) == 3) {
             String nazwaPk = "id_" + nazwaTabeli.toLowerCase();
             String update = "DELETE FROM " + nazwaTabeli + " WHERE " + nazwaPk + "=" + previousID + ";";
-            statusField.setText("akcja zakończona");
+            statusField.setText("usunięto");
 
             try {
                 statement = connection.createStatement();
@@ -116,7 +150,7 @@ public class CrudController {
             }
         }
         else {
-            statusField.setText("akcja nieudana");
+            statusField.setText("usuwanie nieudane");
         }
     }
 

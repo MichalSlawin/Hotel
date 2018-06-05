@@ -1,17 +1,15 @@
-package hotel;
+package dodawanie;
 
+import hotel.CrudController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import login.DbConnection;
 
-import java.sql.*;
-
-public class CrudModel {
+public class DodawanieModel {
     private String nazwaTabeli;
 
-    public CrudModel(String nazwaTabeli) {
+    public DodawanieModel(String nazwaTabeli) {
         this.nazwaTabeli = nazwaTabeli;
     }
 
