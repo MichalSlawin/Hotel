@@ -107,15 +107,33 @@ public class CrudController {
 
     @FXML
     public void dodajRekord() {
-        String update = "INSERT INTO " + nazwaTabeli + " VALUES(" + addField.getText() + ");";
+        if(nazwaTabeli == "Klient") {
+            NowyKlientModel nowyKlientModel = new NowyKlientModel();
+            try {
+                nowyKlientModel.start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else if(nazwaTabeli == "Pracownik") {
+            NowyPracownikModel nowyPracownikModel = new NowyPracownikModel();
+            try {
+                nowyPracownikModel.start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            String update = "INSERT INTO " + nazwaTabeli + " VALUES(" + addField.getText() + ");";
 
-        try {
-            statement = connection.createStatement();
-            statement.executeUpdate(update);
-            statusField.setText("dodano");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            statusField.setText("dodanie nieudane");
+            try {
+                statement = connection.createStatement();
+                statement.executeUpdate(update);
+                statusField.setText("dodano");
+            } catch (SQLException e) {
+                e.printStackTrace();
+                statusField.setText("dodanie nieudane");
+            }
         }
     }
 
@@ -172,6 +190,10 @@ public class CrudController {
 
     public void setAddHelpField() {
         try {
+            if(nazwaTabeli == "Klient" || nazwaTabeli == "Pracownik") {
+                addField.setText("Kliknij dodaj");
+            }
+
             statement = connection.createStatement();
             resultSet = statement.executeQuery("SELECT * FROM " + nazwaTabeli + ";");
 

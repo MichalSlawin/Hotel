@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import login.DbConnection;
 
 import java.sql.*;
@@ -16,6 +17,7 @@ import java.util.List;
 public class WynajemController {
     private ObservableList<String> pokojeList = FXCollections.observableArrayList();
     private List<Integer> idPokojeList = new ArrayList<Integer>();
+    private List<Integer> dodawanePokojeIdList = new ArrayList<Integer>();
     private ObservableList<String> klienciList = FXCollections.observableArrayList();
     private List<Integer> idKlienciList = new ArrayList<Integer>();
     private ObservableList<String> pracownicyList = FXCollections.observableArrayList();
@@ -41,7 +43,8 @@ public class WynajemController {
 
     @FXML
     public void dodajPokoj() {
-
+        int pokojId = idPokojeList.get(pokojComboBox.getSelectionModel().getSelectedIndex());
+        dodawanePokojeIdList.add(pokojId);
     }
 
     @FXML
@@ -55,23 +58,27 @@ public class WynajemController {
 
         String updateWynajem = "INSERT INTO Wynajem VALUES('" + dataWynajmu + "', '" + dataOddania +
                 "', " + oplata + ", " + pracownikId + ", " + klientId + ");";
-        String updatePokoje = "INSERT INTO Pokoje VALUES(" + pokojId + ", " + "IDENT_CURRENT( 'Wynajem' )  " + ");";
         try {
             statement = connection.createStatement();
             statement.executeUpdate(updateWynajem);
-            statement.executeUpdate(updatePokoje);
+            for(int i = 0; i < dodawanePokojeIdList.size(); i++) {
+                pokojId = dodawanePokojeIdList.get(i);
+                String updatePokoje = "INSERT INTO Pokoje VALUES(" + pokojId + ", " + "IDENT_CURRENT( 'Wynajem' )  " + ");";
+                statement.executeUpdate(updatePokoje);
+            }
             statusField.setText("dodano");
         } catch (SQLException e) {
             e.printStackTrace();
             statusField.setText("dodanie nieudane");
         }
-
+        Stage stage = (Stage) statusField.getScene().getWindow();
+        stage.close();
     }
 
 
 
     public void inicjalizuj() {
-        String pokojQuery = "SELECT id_pokoj, numer, ilu_osobowy, wyposazenie FROM pokoj;";
+        String pokojQuery = "SELECT id_pokoj, numer, ilu_osobowy, wyposazenie FROM Pokoj;";
         setList(pokojeList, pokojQuery, idPokojeList);
         pokojComboBox.setItems(pokojeList);
 

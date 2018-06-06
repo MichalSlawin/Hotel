@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hotel.NowyKlientController">
+   <children>
+      <ComboBox fx:id="adresComboBox" layoutX="62.0" layoutY="262.0" prefHeight="31.0" prefWidth="272.0" promptText="Adres" />
+      <TextField fx:id="imieField" layoutX="62.0" layoutY="23.0" prefHeight="31.0" prefWidth="272.0" promptText="Imię" />
+      <TextField fx:id="nazwiskoField" layoutX="62.0" layoutY="83.0" prefHeight="31.0" prefWidth="272.0" promptText="Nazwisko" />
+      <TextField fx:id="emailField" layoutX="62.0" layoutY="141.0" prefHeight="31.0" prefWidth="272.0" promptText="Email" />
+      <TextField fx:id="telefonField" layoutX="62.0" layoutY="200.0" prefHeight="31.0" prefWidth="272.0" promptText="Telefon" />
+      <Button layoutX="268.0" layoutY="317.0" mnemonicParsing="false" onAction="#dodajKlienta" text="Dodaj" />
+   </children>
+</AnchorPane>
