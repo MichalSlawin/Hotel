@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hotel.WynajemController">
+   <children>
+      <ComboBox fx:id="pokojComboBox" layoutX="24.0" layoutY="14.0" prefHeight="31.0" prefWidth="383.0" promptText="Pokój" />
+      <Button layoutX="421.0" layoutY="14.0" mnemonicParsing="false" onAction="#dodajPokoj" text="Dodaj" />
+      <ComboBox fx:id="klientComboBox" layoutX="24.0" layoutY="68.0" prefHeight="31.0" prefWidth="383.0" promptText="Klient" />
+      <ComboBox fx:id="pracownikComboBox" layoutX="24.0" layoutY="124.0" prefHeight="31.0" prefWidth="383.0" promptText="Pracownik" />
+      <DatePicker fx:id="wynajemDate" layoutX="24.0" layoutY="185.0" prefHeight="31.0" prefWidth="261.0" promptText="Data wynajmu" />
+      <DatePicker fx:id="oddanieDate" layoutX="24.0" layoutY="241.0" prefHeight="31.0" prefWidth="261.0" promptText="Data oddania" />
+      <TextField fx:id="oplataTextField" layoutX="24.0" layoutY="300.0" prefHeight="31.0" prefWidth="261.0" promptText="Opłata" />
+      <Button layoutX="354.0" layoutY="300.0" mnemonicParsing="false" onAction="#dodajWynajem" prefHeight="31.0" prefWidth="127.0" text="Dodaj Wynajem" />
+      <TextField fx:id="statusField" layoutX="294.0" layoutY="345.0" text="Status" />
+   </children>
+</AnchorPane>

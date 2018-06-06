@@ -16,5 +16,6 @@
       <Button layoutX="178.0" layoutY="197.0" mnemonicParsing="false" onAction="#zarzadzajPracownikami" text="Pracownicy" />
       <Button layoutX="55.0" layoutY="197.0" mnemonicParsing="false" onAction="#zarzadzajPokojami" prefHeight="31.0" prefWidth="82.0" text="Pokoje" />
       <Button layoutX="306.0" layoutY="137.0" mnemonicParsing="false" onAction="#zarzadzajAdresami" text="Adresy" />
+      <Button layoutX="405.0" layoutY="14.0" mnemonicParsing="false" onAction="#wynajmij" text="Wynajmij" />
    </children>
 </AnchorPane>

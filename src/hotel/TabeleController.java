@@ -36,6 +36,16 @@ public class TabeleController {
         startCRUD("Pracownik");
     }
 
+    @FXML
+    public void wynajmij() {
+        WynajemModel wynajemModel = new WynajemModel();
+        try {
+            wynajemModel.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void startCRUD(String nazwaTabeli) {
         CrudModel crudModel = new CrudModel(nazwaTabeli);
         try {

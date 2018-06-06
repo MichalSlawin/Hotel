@@ -21,8 +21,9 @@ public class CrudModel {
         Parent root = (Parent)fxmlLoader.load();
         CrudController controller = fxmlLoader.<CrudController>getController();
         controller.setNazwaTabeli(nazwaTabeli);
+        controller.setAddHelpField();
         primaryStage.setTitle("CRUD");
-        primaryStage.setScene(new Scene(root, 800, 600));
+        primaryStage.setScene(new Scene(root, 900, 700));
         primaryStage.show();
     }
 }

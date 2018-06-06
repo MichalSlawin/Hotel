@@ -5,6 +5,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import login.DbConnection;
 
+import javax.xml.soap.Text;
 import java.sql.*;
 
 public class CrudController {
@@ -23,6 +24,8 @@ public class CrudController {
     private TextField updateField;
     @FXML
     private TextField statusField;
+    @FXML
+    private TextField addHelpField;
 
     @FXML
     public void wypiszTabele() {
@@ -71,20 +74,23 @@ public class CrudController {
     }
 
     private String setQuery() {
-        Statement idStatement = null;
-        try {
-            idStatement = connection.createStatement();
-            ResultSet idResultSet = idStatement.executeQuery("Select * FROM " + nazwaTabeli + ";");
-            idResultSet.next();
-            previousID = idResultSet.getString(1);
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if(!readField.getText().trim().isEmpty()) {
+            Statement idStatement = null;
+            try {
+                idStatement = connection.createStatement();
+                ResultSet idResultSet = idStatement.executeQuery("Select * FROM " + nazwaTabeli + " WHERE " + readField.getText() + ";");
+                idResultSet.next();
+                previousID = idResultSet.getString(1);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         switch(nazwaTabeli) {
             case "Wynajem":
-                return "SELECT p.imie + ' ' + p.nazwisko AS Pracownik, k.imie + ' ' + k.nazwisko AS Klient, w.data_wynajmu, w.data_oddania, w.oplata\n" +
+                return "SELECT p.nazwisko AS Pracownik, k.nazwisko AS Klient, po.numer AS nrPokoju, w.data_wynajmu, w.data_oddania, w.oplata\n" +
                         "FROM Pracownik p INNER JOIN Wynajem w ON w.Pracownik_id_pracownik = p.id_pracownik\n" +
-                        "INNER JOIN Klient k ON w.Klient_id_klient = k.id_klient";
+                        "INNER JOIN Klient k ON w.Klient_id_klient = k.id_klient INNER JOIN Pokoje pe ON w.id_wynajem = pe.Wynajem_id_wynajem\n" +
+                        "INNER JOIN Pokoj po ON po.id_pokoj = pe.Pokoj_id_pokoj";
             case "Klient":
                 return "SELECT k.imie, k.nazwisko, k.email, k.telefon, a.ulica + a.numer + ' ' + a.kod_pocztowy AS Adres\n" +
                         "FROM Klient k INNER JOIN Adres a ON k.Adres_id_adres = a.id_adres";
@@ -147,6 +153,7 @@ public class CrudController {
                 statement.executeUpdate(update);
             } catch (SQLException e) {
                 e.printStackTrace();
+                statusField.setText("usuwanie nieudane");
             }
         }
         else {
@@ -161,5 +168,27 @@ public class CrudController {
     private static int countLines(String str){
         String[] lines = str.split("\r\n|\r|\n");
         return  lines.length;
+    }
+
+    public void setAddHelpField() {
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("SELECT * FROM " + nazwaTabeli + ";");
+
+            ResultSetMetaData rsmd = resultSet.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+            String help = "";
+            String columnName;
+            for (int i = 2; i <= columnsNumber; i++) {
+                if(i != 2) {
+                    help += ", ";
+                }
+                columnName = rsmd.getColumnName(i);
+                help += columnName;
+            }
+            addHelpField.setText(help);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
